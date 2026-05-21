@@ -8,6 +8,7 @@ import {
 } from '@/app/components/Icons'
 import Nav from '@/app/components/Nav'
 import Footer from '@/app/components/Footer'
+import HeroSection from '@/app/components/HeroSection'
 
 export const metadata: Metadata = {
   title: 'GoodyGoodie — Volunteer. Earn. Redeem.',
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  HERO
+//  AUDIENCE CARDS  (three promo boxes below the hero)
 // ─────────────────────────────────────────────────────────────────────────────
 
 function AudienceCard({
@@ -51,22 +52,11 @@ function AudienceCard({
   )
 }
 
-function Hero() {
+function AudienceCards() {
   return (
-    <section className="bg-white pt-20 pb-28 px-6">
-      <div className="max-w-6xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 bg-green-light text-teal rounded-full px-4 py-1.5 text-sm font-semibold mb-8">
-          <IoStarOutline size={14} />
-          Volunteer · Earn #Gs · Do Good
-        </div>
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-black tracking-tight leading-none mb-5">
-          Be Goody.<br /><span className="text-teal">Get Goodies.</span>
-        </h1>
-        <p className="text-lg md:text-xl text-mid max-w-2xl mx-auto mb-16 leading-relaxed">
-          A community loop connecting volunteers, local retailers, and nonprofits —
-          where doing good comes with real rewards.
-        </p>
-        <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
+    <section className="bg-gray-light py-20 px-6">
+      <div className="max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-4 text-left">
           <AudienceCard icon={IoPersonOutline} role="Volunteers" headline="Volunteer and earn rewards" body="Give your time, earn #Gs, and redeem them at local businesses that sponsor your cause." ctaLabel="Download the app" ctaHref="/home" primary />
           <AudienceCard icon={IoStorefrontOutline} role="Retailers" headline="Build loyalty through community" body="Sponsor local volunteer events. Volunteers earn your rewards — redeemable only at your store." ctaLabel="Become a sponsor" ctaHref="/for-retailers" />
           <AudienceCard icon={IoHeartOutline} role="Nonprofits" headline="Attract more volunteers" body="Post events, get paired with sponsors, and reward your volunteers automatically — no cash required." ctaLabel="List your org" ctaHref="/for-nonprofits" />
@@ -258,7 +248,8 @@ export default function HomePage() {
     <>
       <Nav />
       <main>
-        <Hero />
+        <HeroSection />
+        <AudienceCards />
         <HowItWorks />
         <ForRetailers />
         <ForNonprofits />

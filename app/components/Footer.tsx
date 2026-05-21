@@ -10,9 +10,8 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-10">
           {/* Brand */}
           <div className="max-w-xs">
-            <Link href="/" className="inline-flex items-center gap-2.5 mb-4" aria-label="GoodyGoodie home">
-              <Image src="/icon.png" alt="" width={40} height={40} className="h-10 w-10" />
-              <span className="font-heading font-medium text-lg tracking-tight text-black">GoodyGoodie</span>
+            <Link href="/" className="inline-flex items-center mb-4" aria-label="GoodyGoodie home">
+              <Image src="/icon.png" alt="GoodyGoodie" width={40} height={40} style={{ width: 40, height: 40, objectFit: 'contain' }} />
             </Link>
             <p className="text-mid/70 text-sm leading-relaxed">
               A community loop that rewards volunteering with real value at local businesses.
@@ -32,7 +31,9 @@ export default function Footer() {
             <div>
               <p className="font-bold text-black mb-3">Company</p>
               <ul className="space-y-2.5 text-mid">
-                <li><Link href="/blog" className="hover:text-black transition-colors">Blog</Link></li>
+                <li><Link href="/blog"     className="hover:text-black transition-colors">Blog</Link></li>
+                <li><Link href="/help"     className="hover:text-black transition-colors">Help</Link></li>
+                <li><Link href="/feedback" className="hover:text-black transition-colors">Feedback</Link></li>
                 <li>
                   <a href="mailto:hello@goodygoodie.app" className="hover:text-black transition-colors">
                     Contact
@@ -44,7 +45,7 @@ export default function Footer() {
               <p className="font-bold text-black mb-3">Account</p>
               <ul className="space-y-2.5 text-mid">
                 <li><Link href="/signin" className="hover:text-black transition-colors">Sign in</Link></li>
-                <li><Link href="/home"   className="hover:text-black transition-colors">Get started</Link></li>
+                <li><Link href="/home"   className="hover:text-black transition-colors">Sign up</Link></li>
               </ul>
             </div>
           </div>

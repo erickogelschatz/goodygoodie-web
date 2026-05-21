@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
   IoPersonOutline, IoStorefrontOutline, IoHeartOutline,
   IoMailOutline, IoLockClosedOutline, IoEyeOutline, IoEyeOffOutline,
@@ -40,7 +40,7 @@ function RoleCard({
     <button
       type="button"
       onClick={onSelect}
-      className={`flex flex-col items-center gap-2.5 rounded-2xl p-5 border-2 transition-all text-center ${selected ? 'border-teal bg-green-light' : 'border-gray-light bg-white hover:border-teal/40'}`}
+      className={`aspect-square flex flex-col items-center justify-center gap-2.5 rounded-2xl p-5 border-2 transition-all text-center w-full ${selected ? 'border-teal bg-green-light' : 'border-gray-light bg-white hover:border-teal/40'}`}
     >
       <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${selected ? 'bg-teal' : 'bg-gray-light'}`}>
         <Icon size={20} className={selected ? 'text-white' : 'text-mid'} />
@@ -77,11 +77,19 @@ export default function GetStartedPage() {
   const router = useRouter()
   const supabase = createClient()
 
+  const searchParams = useSearchParams()
+
   const [stage, setStage] = useState<Stage>('role')
   const [selectedRole, setSelectedRole] = useState<Role | null>(null)
   const [name, setName] = useState('')
   const [orgName, setOrgName] = useState('')
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState(() => searchParams.get('email') ?? '')
+
+  // Keep email in sync if the URL param changes (e.g. back-navigation)
+  useEffect(() => {
+    const param = searchParams.get('email')
+    if (param) setEmail(param)
+  }, [searchParams])
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -155,7 +163,7 @@ export default function GetStartedPage() {
 
       {/* Card */}
       <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-sm bg-white rounded-3xl border border-gray-light shadow-sm p-8">
+        <div className={`w-full bg-white rounded-3xl border border-gray-light shadow-sm p-8 ${stage === 'role' ? 'max-w-lg' : 'max-w-sm'}`}>
 
           {/* ── Stage: verify ── */}
           {stage === 'verify' && (

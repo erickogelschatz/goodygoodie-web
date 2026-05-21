@@ -65,8 +65,13 @@ export default function SignInPage() {
     setLoading(false)
 
     if (signInError) {
-      if (signInError.message.toLowerCase().includes('mfa') ||
-          signInError.message.toLowerCase().includes('factor')) {
+      // Check for MFA required — Supabase returns code 'mfa_challenge_required'
+      // or error type string containing 'mfa' for users with MFA enrolled
+      const needsMfa =
+        (signInError as { code?: string }).code === 'mfa_challenge_required' ||
+        signInError.message.toLowerCase().includes('mfa') ||
+        signInError.message.toLowerCase().includes('aal2')
+      if (needsMfa) {
         // MFA required — advance to OTP stage
         setStage('otp')
       } else {
@@ -75,8 +80,10 @@ export default function SignInPage() {
       return
     }
 
-    // No MFA configured — signed in directly
-    router.push('/dashboard')
+    // No MFA configured — signed in directly.
+    // Full page load ensures the auth cookie is sent to the server
+    // before the portal layout's getUser() check runs.
+    window.location.assign('/portal')
   }
 
   // ── Step 2: OTP (TOTP / email OTP) ───────────────────────────────────────
@@ -112,10 +119,14 @@ export default function SignInPage() {
         setLoading(false)
         return
       }
-    }
 
-    setLoading(false)
-    router.push('/dashboard')
+      setLoading(false)
+      window.location.assign('/portal')
+    } else {
+      // No TOTP factor found — cannot complete MFA
+      setError('No authenticator app is set up for this account. Please contact support.')
+      setLoading(false)
+    }
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -125,7 +136,7 @@ export default function SignInPage() {
       {/* Top bar */}
       <div className="bg-white border-b border-gray-light px-6 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2" aria-label="GoodyGoodie home">
-          <Image src="/icon.png" alt="" width={32} height={32} className="h-8 w-8" />
+          <Image src="/icon.png" alt="" width={32} height={32} style={{ width: 32, height: 32, objectFit: 'contain' }} />
           <span className="font-heading font-medium text-base tracking-tight text-black">GoodyGoodie</span>
         </Link>
         <span className="text-sm text-mid">

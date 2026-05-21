@@ -9,7 +9,8 @@
 
   /* GoodyGoodie brand palette */
   --color-teal:        #65BEAD;  /* GoodyGoodie Green — primary brand */
-  --color-teal-dark:   #C6F084;  /* Lime Green — buttons & hover states */
+  --color-lime:        #C6F084;  /* Lime Green — buttons & hover states (was teal-dark) */
+  --color-teal-dark:   #C6F084;  /* Alias: kept for backward compat — use lime instead */
   --color-teal-light:  #A7F3D0;  /* Mint Green — background accents */
   --color-green-light: #E4F5F0;  /* Light Green — accent / tinted surfaces */
   --color-gray-light:  #F5F5F5;  /* Light Gray — page backgrounds & UI surfaces */
